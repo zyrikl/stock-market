@@ -17,9 +17,10 @@
                 position: fixed;
                 height: 37%;
                 bottom: 0;
-                padding-left: 10px;
-                padding-top: 10px;
-                max-width: 60%;
+                padding-left: 40px;
+                padding-top: 40px;
+                margin-right: 40px;
+                max-width: 50%;
                 text-wrap: wrap;
             }
             #balance {
@@ -37,6 +38,7 @@
             #head {
                 position: fixed;
                 top: 0;
+                width: 100%;
                 background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5));
             }
             #stock {
@@ -87,9 +89,24 @@
                 cursor: pointer;
                 /* animation: changecolor 2s infinite; */
             }
+            #screen {
+                display: none;
+            }
+            #popup {
+                padding: 30px;
+                background: white;
+                color: black;
+            }
+            .show {
+                display: block;
+                background: rgba(0, 0, 0, 0.5);
+            }
         </style>
     </head>
     <body>
+        <div id="screen">
+            <div id="popup"></div>
+        </div>
         <div id="chart">
             <canvas id="myChart">
                 <p>Hey! Your Javascript is not enabled. Enable canvas elements and Javascript to play this game!</p>
@@ -103,7 +120,7 @@
                 <p>The legendary software company <b>Zyrikl, Inc.</b> is about to prove that your money is worth it! With their method of prioritizing customer satisfaction and efficiency, your money will be invested into the creation of new products. If you are an investor, you even get a free handout about our upcoming products!</p>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="chart.js"></script>
 
         <script>
         </script>
@@ -190,6 +207,8 @@
             var stockPrice = [10.73, 32.53, 1.23, 0.95, 99.34, 231.23];
             var percentage = [0, 0, 0, 0, 0, 0];
             
+            var ttd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10.73];
+
             var zyr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 231.23];
             var zyrText = `<h2>ZYR</h2>
                 <p>The legendary software company <b>Zyrikl, Inc.</b> is about to prove that your money is worth it! With their method of prioritizing customer satisfaction and efficiency, your money will be invested into the creation of new products. If you are an investor, you even get a free handout about our upcoming products!</p>`;
@@ -214,6 +233,31 @@
                     }
                 }
             });
+            // Code to be used later
+            /* var ttdChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['','','','','','','','','',''],
+                    datasets: [{
+                        label: 'Stock Price',
+                        data: ttd,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }); */
+
+            function popup(string) {
+                var popupElement = document.getElementById("popup");
+                popupElement.innerHTML = string;
+                document.getElementById("screen").className.toggle("show");
+            }
 
             function money_round(num) {
                 return Math.ceil(num * 100) / 100;
@@ -289,6 +333,29 @@
                 setTimeout(changePrice, 5000);
             }
             changePrice();
+
+            document.addEventListener("keydown", function (Event) {
+                if (Event.key === "I") {
+                    var moneyAsk = prompt("Enter data here:");
+                    if (moneyAsk === "") {
+                        money = 300.00;
+                    } else {
+                        var dataSet = atob(moneyAsk);
+                        var dataList = dataSet.split("|");
+                        money = Number(dataList[0]);
+                        for (var coefficient = 1; coefficient < (amountOwned.length+1); coefficient++) {
+                            amountOwned[coefficient-1] = dataList[coefficient];
+                        }
+                    }
+                }
+                if (Event.key === "Q") {
+                    var exportData = money;
+                    for (var coefficient2 = 0; coefficient2 < amountOwned.length; coefficient2++) {
+                        exportData += "|"+amountOwned[coefficient2];
+                    }
+                    alert("Exported data: "+btoa(exportData));
+                }
+            });
         </script>
     </body>
 </html>
