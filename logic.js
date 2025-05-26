@@ -29,31 +29,6 @@ var stockPrice = [10.73, 32.53, 1.23, 0.95, 99.34, 231.23];
 var percentage = [0, 0, 0, 0, 0, 0];
 
 var ttd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10.73];
-
-var zyr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 231.23];
-var zyrText = `<h2>ZYR</h2>
-    <p>The legendary software company <b>Zyrikl, Inc.</b> is about to prove that your money is worth it! With their method of prioritizing customer satisfaction and efficiency, your money will be invested into the creation of new products. If you are an investor, you even get a free handout about our upcoming products!</p>`;
-
-const ctx = document.getElementById('myChart');
-
-var zyrChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['','','','','','','','','',''],
-        datasets: [{
-            label: 'Stock Price',
-            data: zyr,
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
 // Code to be used later
 /* var ttdChart = new Chart(ctx, {
     type: 'line',
