@@ -153,6 +153,7 @@ function changePrice() {
     setTimeout(changePrice, 5000);
 }
 changePrice();
+// fix charts.js
 
 document.addEventListener("keydown", function (Event) {
     if (Event.key === "I") {
